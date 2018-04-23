@@ -1,14 +1,12 @@
 import classes from './Layout.css';
 import React, { Fragment } from 'react';
-const layout = (props) => {
+import Toolbar from 'components/Navigation/Toolbar/Toolbar';
 
-    const classes = ['custom', 'orange'].reduce((sum, el) => {return sum + ' ' + el}, '');
+const layout = (props) => {
 
     return (
         <Fragment>
-            <div>
-                Toolbar, Sidedraw, Backgroup
-            </div>
+            <Toolbar></Toolbar>
             <main className={classes.Content}>
             {props.children}
             </main>
