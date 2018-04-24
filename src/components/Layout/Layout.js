@@ -1,20 +1,39 @@
 import classes from './Layout.css';
-import React, { Fragment } from 'react';
+import React, { Fragment, Component } from 'react';
 import Toolbar from 'components/Navigation/Toolbar/Toolbar';
 import SideDrawer from 'components/Navigation/SideDrawer/SideDrawer';
 
-const layout = (props) => {
+class Layout extends Component {
+  state = {
+    showSideDrawer: false
+  };
 
+  sideDrawerClosedHandler = () => {
+    this.setState({showSideDrawer: false})
+  };
+
+  sideDrawerToggleHandler = () => {
+    this.setState((prevState) => {
+      return {showSideDrawer: !prevState.showSideDrawer}
+    });
+  };
+
+
+  render () {
     return (
-        <Fragment>
-            <SideDrawer/>
-            <Toolbar></Toolbar>
-            <main className={classes.Content}>
-            {props.children}
-            </main>
-        </Fragment>
+      <Fragment>
+        <Toolbar
+          drawerToggleClicked={this.sideDrawerToggleHandler}/>
+        <SideDrawer
+          open={this.state.showSideDrawer}
+          closed={this.sideDrawerClosedHandler}/>
+        <main className={classes.Content}>
+        {this.props.children}
+        </main>
+      </Fragment>
     )
-};
+  }
+}
 
 
-export default layout;
+export default Layout;
