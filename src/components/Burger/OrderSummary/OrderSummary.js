@@ -1,27 +1,34 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Component } from 'react';
 import Button from 'components/UI/Button/Button';
 
-const orderSummary = (props) => {
-  const ingredientSummary = Object.keys(props.ingredients)
-    .map((key) => {
-      return <li key={key}><b>{key}:</b> {props.ingredients[key]}</li>
-  });
-  return (
-    <Fragment>
-      <h3>Your Order</h3>
-      <p>A delicious burger with the following ingredients:</p>
-      <ul>
-        {ingredientSummary}
-      </ul>
-      <p>
-        <strong>
-          Total Price: {props.price.toFixed(2)}
-        </strong>
-        </p>
-      <Button clicked={props.purchaseCanceled} btnType={'Danger'}>CANCEL</Button>
-      <Button clicked={props.purchaseContinued} btnType={'Success'}>CONTINUE</Button>
-    </Fragment>
-  )
-};
+class OrderSummary extends Component {
+  componentWillUpdate() {
+    console.log('summary updating ...');
+  }
 
-export default orderSummary;
+
+  render() {
+    const ingredientSummary = Object.keys(this.props.ingredients)
+      .map((key) => {
+        return <li key={key}><b>{key}:</b> {this.props.ingredients[key]}</li>
+    });
+    return (
+      <Fragment>
+        <h3>Your Order</h3>
+        <p>A delicious burger with the following ingredients:</p>
+        <ul>
+          {ingredientSummary}
+        </ul>
+        <p>
+          <strong>
+            Total Price: {this.props.price.toFixed(2)}
+          </strong>
+          </p>
+        <Button clicked={this.props.purchaseCanceled} btnType={'Danger'}>CANCEL</Button>
+        <Button clicked={this.props.purchaseContinued} btnType={'Success'}>CONTINUE</Button>
+      </Fragment>
+    )
+  }
+}
+
+export default OrderSummary;
