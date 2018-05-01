@@ -6,25 +6,32 @@ const withErrorHandler = (WrappedComponent, axios) => {
 
   return class extends Component {
     state = {
-      error: null
+      error: null,
     };
 
     componentWillMount() {
       // called before child components are rendered
       // if componentdidmount, then it will not work
-      axios.interceptors.request.use(req => {
+      this.reqInterceptor = axios.interceptors.request.use(req => {
         this.setState({error: null});
         return req;
       });
 
-      axios.interceptors.response.use(res => res, err => {
+      this.resInterceptor = axios.interceptors.response.use(res => res, err => {
         this.setState({error: err});
       });
     }
 
+    componentWillUnmount() {
+      console.log('Un Mount');
+      axios.interceptors.request.eject(this.reqInterceptor);
+      axios.interceptors.response.eject(this.resInterceptor);
+    }
+
     errorConfirmedHandler = () => {
       this.setState({error: null})
-    }
+    };
+
     render() {
       return (
         <Fragment>
