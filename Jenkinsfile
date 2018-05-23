@@ -2,8 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:6-alpine'
-            args '-p 3000:3000'
-            args '-u root:root'
+            args '-p 3000:3000 -u root:root'
         }
     }
     environment {
@@ -13,7 +12,6 @@ pipeline {
         stage('Prepare') {
             steps {
                 sh "npm install -g yarn"
-                sh "usermod -aG docker jenkins"
             }
         }
         stage('Build') {
