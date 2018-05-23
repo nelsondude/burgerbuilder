@@ -21,6 +21,7 @@ pipeline {
         }
         stage('Test') {
             steps {
+                sh 'sudo su'
                 sh './jenkins/scripts/test.sh'
             }
         }
