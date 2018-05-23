@@ -13,7 +13,7 @@ pipeline {
         stage('Prepare') {
             steps {
                 sh "npm install -g yarn"
-                sh "sudo usermod -aG docker jenkins"
+                sh "usermod -aG docker jenkins"
             }
         }
         stage('Build') {
